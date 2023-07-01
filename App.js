@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, FlatList, View, ScrollView, SafeAreaView  } from 'react-native';
-import Thumbnail from './thumbnail';
+import Thumlist from './components/Thumlist';
 
 export default function App() {
   const videos = [
@@ -18,15 +18,21 @@ export default function App() {
     },
   ];
 
+   // Filtrer les vidéos par tag
+   const memeVideos = videos.filter((video) => video.tags.includes('meme'));
+   const movieVideos = videos.filter((video) => video.tags.includes('movie'));
+   const adVideos = videos.filter((video) => video.tags.includes('ad'));
+   const exclusiveVideos = videos.filter((video) => video.tags.includes('exclusive'));
+   const shortVideos = videos.filter((video) => video.tags.includes('short'));
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Seulement sur mystudio</Text>
-      <ScrollView style={styles.scrollview} horizontal={true}>
-        {videos.map((video) => (
-          <Thumbnail key={video.id} title={video.title} id={video.id} />
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView style={styles.container}>
+      <Thumlist text="Seulement sur mystudio" list={exclusiveVideos} />
+      <Thumlist text="Rapide" list={shortVideos} />
+      <Thumlist text="Drole" list={memeVideos} />
+      <Thumlist text="Films" list={movieVideos} />
+      <Thumlist text="Publicités" list={adVideos} />
+    </ScrollView>
   );
 }
 
@@ -34,11 +40,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-  },
-  scrollview:{
-
-  },
-  text: {
-    color: '#fff',
   }
 });

@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: '#fff',
+    width: 200,
   }
 });
 
